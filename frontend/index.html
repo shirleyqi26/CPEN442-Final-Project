@@ -13,7 +13,7 @@
     />
   </head>
 
-  <body style="background-color: #121212" onload="typeHeaderText()">
+  <body style="background-color: #121212" onload="checkCookies()">
     <img
       src="assets/circuits.svg"
       style="
@@ -32,6 +32,7 @@
         filter: drop-shadow(0 0 5px rgb(154, 222, 154));
       "
     />
+  
     <div class="search-bar">
       <form onSubmit="return onSearchSubmit()" class="search-bar__form">
         <input
@@ -41,11 +42,23 @@
         />
         <button type="submit" class="search-bar__submit-btn" />
       </form>
+
+      <button class = "button" id = "login-button" type="button" onclick="toggleLoginPopup()">Log In</button>
     </div>
 
+      <div id = "login-popup-body">
+        <form id = "login-form">
+          <label for = "username"><b>Username</b></label><br>
+          <input class ="input" type="text" placeholder="Enter username" name="username"> <br><br>
+          <label for = "password"><b>Password</b></label><br>
+          <input class ="input" type="password" placeholder="Enter password" name="password"> <br><br>
+          <input class = "button" type="submit" value="Submit">
+        </form>
+      </div>
+
     <div class="header">
-      <h1 id="header-text">_</h1>
-      <h1 id="header-text2">_</h1>
+      <h1 id="header-text">Cyber-Squad_</h1>
+      <h1 id="header-text2">CPEN 442 Final Project_</h1>
     </div>
 
     <div id="blog-container">

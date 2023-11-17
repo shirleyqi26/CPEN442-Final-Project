@@ -46,7 +46,6 @@ body {
 
 .header {
   text-align: center;
-  position: sticky;
   color: #accf5d;
 }
 
@@ -98,10 +97,54 @@ body {
   height: 20px;
 }
 
+.button {
+  color: #accf5d;
+  background-color: transparent;
+  outline: 5px solid #accf5d;
+  border-radius: 0.23rem;
+  filter: drop-shadow(0px 0px 2px #accf5d)
+}
+
+#login-button{
+  position: absolute;
+  right: 0;
+  margin-right: 2.5rem;
+  height: 2rem;
+  width: 7rem;
+  font-size: 1.2rem;
+}
+
+#login-popup-body{
+  visibility: hidden;
+  background-color: #303030;
+  width: 15vw;
+  border-radius: 8px;
+  height: 20vw;
+  right: 1rem;
+  top: 5rem;
+  position: absolute;
+  outline: 0.5rem solid #accf5d;
+  justify-content: center;
+}
+
+.input{
+  border: transparent;
+  background-color: #dae2ca;
+  height: 1.5rem;
+  border-radius: 0.3rem;
+}
+
+#login-form{
+  text-align: center;
+  padding-top: 10vh;
+  font-size: 1.3rem;
+  color: #accf5d;
+}
+
 line {
-  filter: drop-shadow(0px 0px 4px red);
+  filter: drop-shadow(0px 0px 4px #accf5d);
 }
 
 circle {
-  filter: drop-shadow(0px 0px 4px red);
+  filter: drop-shadow(0px 0px 4px #accf5d);
 }

@@ -1,34 +1,3 @@
-var txt = "Cyber-Squad";
-var txt2 = "CPEN 442 Final Project";
-var i = 0;
-
-function typeHeaderText() {
-  if (i < txt.length) {
-    var currHeaderText = document.getElementById("header-text").innerHTML;
-    document.getElementById("header-text").innerHTML =
-      currHeaderText.substring(0, currHeaderText.length - 1) +
-      txt.charAt(i) +
-      "_";
-    i++;
-    setTimeout(typeHeaderText, 200);
-  } else {
-    i = 0;
-    setTimeout(typeHeaderText2, 200);
-  }
-}
-
-function typeHeaderText2() {
-  if (i < txt2.length) {
-    var currHeaderText = document.getElementById("header-text2").innerHTML;
-    document.getElementById("header-text2").innerHTML =
-      currHeaderText.substring(0, currHeaderText.length - 1) +
-      txt2.charAt(i) +
-      "_";
-    i++;
-    setTimeout(typeHeaderText2, 150);
-  }
-}
-
 async function onSearchSubmit() {
   try {
     var searchQuery = document.getElementById("search-query").value;
@@ -48,3 +17,44 @@ async function onSearchSubmit() {
   }
   return false;
 }
+
+function checkCookies(){
+  let cookie = document.cookie
+  console.log(cookie)
+  if(cookie != ""){
+    //if user has a cookie, then they're logged in so don't show the login button
+    let loginButton = document.getElementById("login-button");
+    loginButton.style.visibility = "hidden";
+  }
+}
+
+function toggleLoginPopup(){
+  let loginPopup =  document.getElementById("login-popup-body")
+  loginPopup.style.visibility = "visible";
+}
+
+let loginForm = document.getElementById("login-form")
+
+loginForm.addEventListener("submit", (e => {
+  e.preventDefault();
+  let username = loginForm.elements['username'].value
+  let password = loginForm.elements['password'].value
+
+  if(username != "" && password != ""){
+    console.log(username)
+    console.log(password)
+
+    //check creds with database
+    // if credentials are valid, then hide the login popup and create the user's cookie
+    let loginPopup =  document.getElementById("login-popup-body")
+    loginPopup.style.visibility = "hidden";
+    var expirationTime = new Date(new Date().getTime() + 60*60*1000);
+    document.cookie = "username=" + username + "; expires=" + expirationTime.toUTCString();
+
+    checkCookies()
+    //if credentials aren't valid, don't do anything, or we could show error if we want to
+    //rlly make it look nice
+  }else{
+    alert("Please do not leave username or password blank!");
+  }
+}))
