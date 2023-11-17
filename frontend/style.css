@@ -1,61 +1,107 @@
-.header{
-    text-align: center;
-    position: sticky;
-    color: #accf5d;
+body {
+  margin: 0;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #303030;
+  width: 100vw;
+  height: 4rem;
+
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+.search-bar__form {
+  display: flex;
+  align-items: center;
+
+  background-color: white;
+  width: clamp(20rem, 50vw, 50rem);
+  height: 3rem;
+  border-radius: 0.5rem;
+}
+.search-bar__input {
+  all: unset;
+  height: 100%;
+  flex-grow: 1;
+
+  padding: 0 1rem;
+}
+.search-bar__submit-btn {
+  all: unset;
+
+  background-image: url("assets/magnifying-glass.svg");
+  background-size: contain;
+  cursor: pointer;
+  height: 50%;
+  aspect-ratio: 1;
+
+  margin-right: 1rem;
+}
+
+.header {
+  text-align: center;
+  position: sticky;
+  color: #accf5d;
 }
 
 * {
-    font-family: 'Zilla Slab', serif;
+  font-family: "Zilla Slab", serif;
 }
 
-#header-text2{
-    font-size: 3vh;
-    letter-spacing: 6px;
-    margin-bottom: 5vh;
+#header-text2 {
+  font-size: 3vh;
+  letter-spacing: 6px;
+  margin-bottom: 5vh;
 }
 
-#header-text{
-    margin-top: 12vh;
-    font-size: 10vh;
-    letter-spacing: 10px;
-    margin-bottom: 0;
+#header-text {
+  margin-top: 12vh;
+  font-size: 10vh;
+  letter-spacing: 10px;
+  margin-bottom: 0;
 }
 
-#blog-container{
-    background-color:#121212;
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#blog-container {
+  background-color: #121212;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.blog-post{
-    width: 60vw;
-    margin: 1vw;
-    background-color: #303030;
-    color: white;
-    border-radius: 8px;
-    outline: 3px solid rgb(186, 186, 186);
+.blog-post {
+  width: 60vw;
+  margin: 1vw;
+  background-color: #303030;
+  color: white;
+  border-radius: 8px;
+  outline: 3px solid rgb(186, 186, 186);
 }
 
-.blog-post > p{
-    margin-bottom: 20px;
-    margin-left: 20px;
+.blog-post > p {
+  margin-bottom: 20px;
+  margin-left: 20px;
 }
 
-.blog-post > h2{
-    margin-left: 20px;
+.blog-post > h2 {
+  margin-left: 20px;
 }
 
-.tab{
-    background-color:rgb(186, 186, 186);
-    height: 20px;
+.tab {
+  background-color: rgb(186, 186, 186);
+  height: 20px;
 }
 
 line {
-    filter: drop-shadow(0px 0px 4px red)
+  filter: drop-shadow(0px 0px 4px red);
 }
 
 circle {
-    filter: drop-shadow(0px 0px 4px red)
+  filter: drop-shadow(0px 0px 4px red);
 }
