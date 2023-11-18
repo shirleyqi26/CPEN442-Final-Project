@@ -25,7 +25,24 @@ function checkCookies(){
     //if user has a cookie, then they're logged in so don't show the login button
     let loginButton = document.getElementById("login-button");
     loginButton.style.visibility = "hidden";
+
+    //show the profile button
+    let profileButton = document.getElementById("profile-button")
+    profileButton.style.visibility = "visible"
+
+    //fill in profile info here too
   }
+}
+
+var show = false
+function toggleProfilePopup(){
+  var profilePopup = document.getElementById("profile-popup-body")
+  if(!show){
+    profilePopup.style.visibility = "visible"
+  }else{
+    profilePopup.style.visibility = "hidden"
+  }
+  show = !show
 }
 
 function toggleLoginPopup(){
@@ -44,8 +61,8 @@ loginForm.addEventListener("submit", (e => {
     console.log(username)
     console.log(password)
 
-    //check creds with database
-    // if credentials are valid, then hide the login popup and create the user's cookie
+    // check creds with database
+    // if credentials are valid, then hide the login popup, create the user's cookie, and fill profile popup with info
     let loginPopup =  document.getElementById("login-popup-body")
     loginPopup.style.visibility = "hidden";
     var expirationTime = new Date(new Date().getTime() + 60*60*1000);

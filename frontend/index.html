@@ -34,6 +34,7 @@
     />
   
     <div class="search-bar">
+      <button class = "button" id = "profile-button" type="button" onclick="toggleProfilePopup()">Profile</button>
       <form onSubmit="return onSearchSubmit()" class="search-bar__form">
         <input
           id="search-query"
@@ -44,6 +45,15 @@
       </form>
 
       <button class = "button" id = "login-button" type="button" onclick="toggleLoginPopup()">Log In</button>
+    </div>
+
+    <div id = "profile-popup-body">
+      <h1 class = "info-label"> <b>Real Name</b></h1>
+      <h1 class = "user-info">John Smith</h1>
+      <h1 class = "info-label"><b>Birthday</b></h1>
+      <h1 class = "user-info">11/17/1999</h1>
+      <h1 class = "info-label"><b>Email</b></h1>
+      <h1 class = "user-info">johnsmith@johnsmith.com</h1>
     </div>
 
       <div id = "login-popup-body">
