@@ -20,40 +20,68 @@ async function onSearchSubmit() {
 
 function checkCookies(){
   let cookie = document.cookie
-  console.log(cookie)
   if(cookie != ""){
     //if user has a cookie, then they're logged in so don't show the login button
     let loginButton = document.getElementById("login-button");
-    loginButton.style.visibility = "hidden";
+    loginButton.style.display = "none"
+
+    //show the logout button
+    let logoutButton = document.getElementById("logout-button");
+    logoutButton.style.display = "inline"
 
     //show the profile button
     let profileButton = document.getElementById("profile-button")
-    profileButton.style.visibility = "visible"
+    profileButton.style.display = "inline"
 
-    //fill in profile info here too
+    // conveniently, cookie value is the user's username, so we can simply query the
+    // database by username to get back the user's information to store in the
+    // profile information pop up
   }
 }
 
-var show = false
+//for convenience so we don't have to manually delete the cookie each time to log out
+function logOut(){
+  let oldCookie = document.cookie;
+  document.cookie = oldCookie.split(";")[0] + ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+
+  let loginButton = document.getElementById("login-button");
+  loginButton.style.display = "inline"
+
+  let logoutButton = document.getElementById("logout-button");
+  logoutButton.style.display = "none"
+
+  let profileButton = document.getElementById("profile-button")
+  profileButton.style.display = "none"
+
+  var profilePopup = document.getElementById("profile-popup-body")
+  profilePopup.style.visibility = "hidden"
+}
+
+var showProfile = false
 function toggleProfilePopup(){
   var profilePopup = document.getElementById("profile-popup-body")
-  if(!show){
+  if(!showProfile){
     profilePopup.style.visibility = "visible"
   }else{
     profilePopup.style.visibility = "hidden"
   }
-  show = !show
+  showProfile = !showProfile
 }
 
+var showLogin = false
 function toggleLoginPopup(){
   let loginPopup =  document.getElementById("login-popup-body")
-  loginPopup.style.visibility = "visible";
+  if(!showLogin){
+    loginPopup.style.visibility = "visible"
+  }else{
+    loginPopup.style.visibility = "hidden";
+  }
+  showLogin = !showLogin
 }
 
 let loginForm = document.getElementById("login-form")
 
 loginForm.addEventListener("submit", (e => {
-  e.preventDefault();
   let username = loginForm.elements['username'].value
   let password = loginForm.elements['password'].value
 
@@ -61,16 +89,20 @@ loginForm.addEventListener("submit", (e => {
     console.log(username)
     console.log(password)
 
-    // check creds with database
-    // if credentials are valid, then hide the login popup, create the user's cookie, and fill profile popup with info
+    /**
+     * If credentials are correct, then:
+     * - hide login button
+     * - show profile button
+     * - create cookie (set to 2 hours expiry)
+     */
+
+    // for now just unconditionally "log" them in since backend isn't set up
     let loginPopup =  document.getElementById("login-popup-body")
     loginPopup.style.visibility = "hidden";
     var expirationTime = new Date(new Date().getTime() + 60*60*1000);
     document.cookie = "username=" + username + "; expires=" + expirationTime.toUTCString();
 
     checkCookies()
-    //if credentials aren't valid, don't do anything, or we could show error if we want to
-    //rlly make it look nice
   }else{
     alert("Please do not leave username or password blank!");
   }
