@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Response Viewer</title>
+</head>
+<body>
+
+<div id="responseContainer"></div>
+<script>
+    fetch('http://localhost:3000/')
+        .then(response => response.json())
+        .then(dataList => {
+            var resultContainer = document.getElementById('responseContainer');
+        
+            dataList.forEach((data, index) => {
+            const listItem = document.createElement('div');
+            listItem.textContent = data.info;
+            resultContainer.appendChild(listItem);
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+
+    // fetch('http://localhost:3000/stolenInfo', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({ "stolen_info": "test1"}),
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log(data)
+    //     })
+    //     .catch(error => console.error('Error:', error));
+    
+</script>
+</body>
+</html>
