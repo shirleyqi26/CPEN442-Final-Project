@@ -81,6 +81,7 @@ body {
   color: white;
   border-radius: 8px;
   outline: 3px solid rgb(186, 186, 186);
+  list-style: none;
 }
 
 .blog-post > p {
@@ -102,10 +103,10 @@ body {
   background-color: transparent;
   outline: 5px solid #accf5d;
   border-radius: 0.23rem;
-  filter: drop-shadow(0px 0px 2px #accf5d)
+  filter: drop-shadow(0px 0px 2px #accf5d);
 }
 
-#profile-button{
+#profile-button {
   position: absolute;
   left: 0;
   margin-left: 2.5rem;
@@ -115,7 +116,7 @@ body {
   display: none;
 }
 
-#login-button{
+#login-button {
   position: absolute;
   right: 0;
   margin-right: 2.5rem;
@@ -124,7 +125,7 @@ body {
   font-size: 1.2rem;
 }
 
-#logout-button{
+#logout-button {
   position: absolute;
   display: none;
   right: 0;
@@ -134,7 +135,7 @@ body {
   font-size: 1.2rem;
 }
 
-#profile-popup-body{
+#profile-popup-body {
   visibility: hidden;
   background-color: #dae2ca;
   left: 1rem;
@@ -146,11 +147,11 @@ body {
   text-align: center;
 }
 
-.user-info{
+.user-info {
   color: white;
 }
 
-.info-label{
+.info-label {
   color: #accf5d;
 }
 
@@ -160,7 +161,7 @@ body {
   margin-left: 1rem;
 }
 
-#login-popup-body{
+#login-popup-body {
   visibility: hidden;
   background-color: #303030;
   border-radius: 5px;
@@ -171,18 +172,20 @@ body {
   justify-content: center;
 }
 
-.input{
+.input {
   border: transparent;
   background-color: #dae2ca;
   height: 1.5rem;
   border-radius: 0.3rem;
 }
 
-#login-form{
+#login-form {
   text-align: center;
   padding: 3rem;
   font-size: 1.3rem;
   color: #accf5d;
+}
+
 .create-post-btn {
   all: unset;
 
