@@ -1,3 +1,40 @@
+// show and hide search bar with scroll
+var prevScrollPos = window.scrollY;
+window.onscroll = function () {
+  var currentScrollPos = window.scrollY;
+  if (prevScrollPos > currentScrollPos) {
+    document.getElementById("search-bar").style.top = "0";
+  } else {
+    document.getElementById("search-bar").style.top = "-4rem";
+  }
+  prevScrollPos = currentScrollPos;
+};
+
+// modal
+var modal = document.getElementById("modal");
+var createPostBtn = document.getElementById("create-post-btn");
+var closeModalBtn = document.getElementById("modal__close-btn");
+
+createPostBtn.onclick = function () {
+  modal.style.display = "block";
+};
+
+closeModalBtn.onclick = function () {
+  modal.style.display = "none";
+};
+
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+
+function onCreatePost() {
+  // TODO: make backend call
+  console.log("making backend API call");
+}
+
+// search bar API call
 async function onSearchSubmit() {
   try {
     var searchQuery = document.getElementById("search-query").value;
