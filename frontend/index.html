@@ -32,89 +32,90 @@
         filter: drop-shadow(0 0 5px rgb(154, 222, 154));
       "
     />
-    
+
     <div id="search-bar" class="search-bar">
-       <button class = "button" id = "profile-button" type="button" onclick="toggleProfilePopup()">Profile</button>
-      <form onsubmit="return onSearchSubmit()" class="search-bar__form">
+      <button
+        class="button"
+        id="profile-button"
+        type="button"
+        onclick="toggleProfilePopup()"
+      >
+        Profile
+      </button>
+      <form id="search-bar__form" class="search-bar__form">
         <input
-          id="search-query"
+          id="search-bar__input"
           placeholder="Search posts by username, e.g. harwal14"
           class="search-bar__input"
         />
-        <button type="submit" class="search-bar__submit-btn" />
+        <button
+          type="submit"
+          id="search-bar__submit-btn"
+          class="search-bar__submit-btn"
+        />
       </form>
 
-      <button class = "button" id = "login-button" type="button" onclick="toggleLoginPopup()">Log In</button>
-      <button class = "button" id = "logout-button" type="button" onclick="logOut()">Log Out</button>
+      <button
+        class="button"
+        id="login-button"
+        type="button"
+        onclick="toggleLoginPopup()"
+      >
+        Log In
+      </button>
+      <button
+        class="button"
+        id="logout-button"
+        type="button"
+        onclick="logOut()"
+      >
+        Log Out
+      </button>
     </div>
 
     <!-- when backend is setup, fetch user info dynamically -->
-    <div id = "profile-popup-body">
-      <h1 class = "info-label"> <b>Real Name</b></h1>
-      <h1 class = "user-info">John Smith</h1>
-      <h1 class = "info-label"><b>Birthday</b></h1>
-      <h1 class = "user-info">11/17/1999</h1>
-      <h1 class = "info-label"><b>Email</b></h1>
-      <h1 class = "user-info">johnsmith@johnsmith.com</h1>
-      <h1 class = "info-label"><b>Super Secret Information</b></h1>
-      <h1 class = "user-info">this is top secret</h1>
+    <div id="profile-popup-body">
+      <h1 class="info-label"><b>Real Name</b></h1>
+      <h1 class="user-info">John Smith</h1>
+      <h1 class="info-label"><b>Birthday</b></h1>
+      <h1 class="user-info">11/17/1999</h1>
+      <h1 class="info-label"><b>Email</b></h1>
+      <h1 class="user-info">johnsmith@johnsmith.com</h1>
+      <h1 class="info-label"><b>Super Secret Information</b></h1>
+      <h1 class="user-info">this is top secret</h1>
     </div>
 
-      <div id = "login-popup-body">
-        <form id = "login-form">
-          <label for = "username"><b>Username</b></label><br>
-          <input class ="input" type="text" placeholder="Enter username" name="username"> <br><br>
-          <label for = "password"><b>Password</b></label><br>
-          <input class ="input" type="password" placeholder="Enter password" name="password"> <br><br>
-          <input class = "button" type="submit" value="Submit">
-        </form>
-      </div>
+    <div id="login-popup-body">
+      <form id="login-form">
+        <label for="username"><b>Username</b></label>
+        <br />
+        <input
+          class="input"
+          type="text"
+          placeholder="Enter username"
+          name="username"
+        />
+        <br /><br />
+        <label for="password"><b>Password</b></label>
+        <br />
+        <input
+          class="input"
+          type="password"
+          placeholder="Enter password"
+          name="password"
+        />
+        <br /><br />
+        <input class="button" type="submit" value="Submit" />
+      </form>
+    </div>
 
     <div class="header">
       <h1 id="header-text">Cyber-Squad_</h1>
       <h1 id="header-text2">CPEN 442 Final Project_</h1>
     </div>
 
-    <div id="blog-container">
-      <div class="blog-post">
-        <div class="tab"></div>
-        <h2><strong>Users\SecretMan123 ></strong> This is my posts</h2>
-        <p>stuff stuff stuff</p>
-      </div>
-      <div class="blog-post">
-        <div class="tab"></div>
-        <h2>Users\SecretMan123 > This is my post</h2>
-        <p>
-          I bring all the drama-ma-ma-ma, all the drama-ma-ma-ma, with my girls
-          in the back girls in the back
-        </p>
-      </div>
-      <div class="blog-post">
-        <div class="tab"></div>
-        <h2>Users\Ive > Baddie</h2>
-        <p>
-          [Intro] (Ba-ba-ba-ba-ba-ba-ba) [Chorus: Leeseo, Gaeul] I'm a baddie,
-          ba-ba-baddie, baddie Pretty little risky baddie 뭐든 될 대로 되라지
-          Catch me if you can Baddie, ba-ba-baddie, baddie 나는 없어 거기 이미
-          어차피 못 찾을 테니 Catch me if you can [Verse 1: Jang Wonyoung, Liz,
-          Rei] Nothing like the regulars 내 DNA엔 blue blood runs 더 솔직하게
-          말해줘 착한 척은 지겨워 우리 앞에선 룰이 의미 없었어 굳이 유행이 돌고
-          돌아도 난 그 틀에 없어 이미 I wanna break, I wanna kick, 뛰어 놀래
-          시끄럽게 다채로운 매력 수많은 변칙 위에 더 빛을 발하지 [Pre-Chorus: An
-          Yujin] 답답한 건 벗어 던져 고개 숙일 필요 없어 (Ba-ba-ba-ba-ba-ba-ba)
-          [Chorus: Jang Wonyoung, An Yujin] I'm a baddie, ba-ba-baddie, baddie
-          Pretty little risky baddie 뭐든 될 대로 되라지 Catch me if you can
-          Baddie, ba-ba-baddie, baddie 나는 없어 거기 이미 어차피 못 찾을 테니
-          Catch me if you can
-        </p>
-      </div>
-      <div class="blog-post">
-        <div class="tab"></div>
-        <h2>Users\verysecure123> this is my title</h2>
-        <p>Test</p>
-      </div>
-      <button id="create-post-btn" class="create-post-btn" />
-    </div>
+    <ul id="blog-container"></ul>
+    <button id="create-post-btn" class="create-post-btn"></button>
 
     <div id="modal" class="modal">
       <div class="modal__content">
