@@ -1,11 +1,15 @@
+var txt = "Cyber-Squad";
+var txt2 = "CPEN 442 Final Project";
+var i = 0;
+
 // show and hide search bar with scroll
 var prevScrollPos = window.scrollY;
 window.onscroll = function () {
   var currentScrollPos = window.scrollY;
   if (prevScrollPos > currentScrollPos) {
-    document.getElementById("search-bar").style.top = "0";
+	document.getElementById("search-bar").style.top = "0";
   } else {
-    document.getElementById("search-bar").style.top = "-4rem";
+	document.getElementById("search-bar").style.top = "-4rem";
   }
   prevScrollPos = currentScrollPos;
 };
@@ -25,122 +29,148 @@ closeModalBtn.onclick = function () {
 
 window.onclick = function (event) {
   if (event.target == modal) {
-    modal.style.display = "none";
+	modal.style.display = "none";
   }
 };
 
 function onCreatePost() {
   // TODO: make backend call
   console.log("making backend API call");
-}
+  posts = [
+	{
+	  author: "TEST",
+	  subject: "This is my posts",
+	  content: "stuff stuff stuff",
+	},
+  ];
 
-// search bar API call
-async function onSearchSubmit() {
-  try {
-    var searchQuery = document.getElementById("search-query").value;
-    console.log(searchQuery);
-
-    const res = await fetch("http://127.0.0.1:5000"); // TODO: make request to backend GET /search
-    if (!res.ok) {
-      throw new Error("HTTP error: status ${res.status}");
-    } else {
-      console.log("Fetch OK!");
-    }
-
-    const data = await res.json();
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
   return false;
 }
 
-function checkCookies(){
-  let cookie = document.cookie
-  if(cookie != ""){
-    //if user has a cookie, then they're logged in so don't show the login button
-    let loginButton = document.getElementById("login-button");
-    loginButton.style.display = "none"
-
-    //show the logout button
-    let logoutButton = document.getElementById("logout-button");
-    logoutButton.style.display = "inline"
-
-    //show the profile button
-    let profileButton = document.getElementById("profile-button")
-    profileButton.style.display = "inline"
-
-    // conveniently, cookie value is the user's username, so we can simply query the
-    // database by username to get back the user's information to store in the
-    // profile information pop up
+// header text typing effect
+function typeHeaderText() {
+  if (i < txt.length) {
+	var currHeaderText = document.getElementById("header-text").innerHTML;
+	document.getElementById("header-text").innerHTML =
+	  currHeaderText.substring(0, currHeaderText.length - 1) +
+	  txt.charAt(i) +
+	  "_";
+	i++;
+	setTimeout(typeHeaderText, 200);
+  } else {
+	i = 0;
+	setTimeout(typeHeaderText2, 200);
   }
 }
 
-//for convenience so we don't have to manually delete the cookie each time to log out
-function logOut(){
-  let oldCookie = document.cookie;
-  document.cookie = oldCookie.split(";")[0] + ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
-
-  let loginButton = document.getElementById("login-button");
-  loginButton.style.display = "inline"
-
-  let logoutButton = document.getElementById("logout-button");
-  logoutButton.style.display = "none"
-
-  let profileButton = document.getElementById("profile-button")
-  profileButton.style.display = "none"
-
-  var profilePopup = document.getElementById("profile-popup-body")
-  profilePopup.style.visibility = "hidden"
+function typeHeaderText2() {
+  if (i < txt2.length) {
+	var currHeaderText = document.getElementById("header-text2").innerHTML;
+	document.getElementById("header-text2").innerHTML =
+	  currHeaderText.substring(0, currHeaderText.length - 1) +
+	  txt2.charAt(i) +
+	  "_";
+	i++;
+	setTimeout(typeHeaderText2, 150);
+  }
 }
 
-var showProfile = false
-function toggleProfilePopup(){
-  var profilePopup = document.getElementById("profile-popup-body")
-  if(!showProfile){
-    profilePopup.style.visibility = "visible"
-  }else{
-    profilePopup.style.visibility = "hidden"
+// TODO: this should be returned from the backend
+var posts1 = [
+  {
+	author: "SecretMan123",
+	subject: "This is my posts",
+	content: "stuff stuff stuff",
+  },
+  {
+	author: "Test user 1",
+	subject: "This is my post",
+	content:
+	  "I bring all the drama-ma-ma-ma, all the drama-ma-ma-ma, with my girls in the back girls in the back",
+  },
+  {
+	author: "Test user 1",
+	subject: "",
+	content: `[Intro] (Ba-ba-ba-ba-ba-ba-ba) [Chorus: Leeseo, Gaeul] I'm a baddie,
+	ba-ba-baddie, baddie Pretty little risky baddie 뭐든 될 대로 되라지
+	Catch me if you can Baddie, ba-ba-baddie, baddie 나는 없어 거기 이미
+	어차피 못 찾을 테니 Catch me if you can [Verse 1: Jang Wonyoung, Liz,
+	Rei] Nothing like the regulars 내 DNA엔 blue blood runs 더 솔직하게
+	말해줘 착한 척은 지겨워 우리 앞에선 룰이 의미 없었어 굳이 유행이 돌고
+	돌아도 난 그 틀에 없어 이미 I wanna break, I wanna kick, 뛰어 놀래
+	시끄럽게 다채로운 매력 수많은 변칙 위에 더 빛을 발하지 [Pre-Chorus: An
+	Yujin] 답답한 건 벗어 던져 고개 숙일 필요 없어 (Ba-ba-ba-ba-ba-ba-ba)
+	[Chorus: Jang Wonyoung, An Yujin] I'm a baddie, ba-ba-baddie, baddie
+	Pretty little risky baddie 뭐든 될 대로 되라지 Catch me if you can
+	Baddie, ba-ba-baddie, baddie 나는 없어 거기 이미 어차피 못 찾을 테니
+	Catch me if you can`,
+  },
+];
+
+window.addEventListener("DOMContentLoaded", function () {
+  const postsList = document.getElementById("blog-container");
+  // TODO: change this to backend url
+  const baseUrl = "localhost:3000";
+  console.log("hello")
+  // TODO: append query to baseUrl and make request
+  function displayPosts(query) {
+	console.log("hello")
+	postsList.innerHTML = "";
+
+		fetch(baseUrl + '/getPosts', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			}
+		}).then((res) => {
+		if (!res.ok) {
+		  throw new Error("HTTP error!");
+		}
+		print(res.json())
+		return res.json();
+	  })
+	  .then((posts) => {
+		posts.forEach((post) => {
+			console.log(post)
+			const li = document.createElement("li");
+			li.classList.add("blog-post");
+			li.innerHTML = `
+		<div class="tab"></div>
+		<h2>Users\\${post.author} > <b>${post.subject}</b></h2>
+		<p>${post.content}</p>`;
+		});
+	  })
+	  .catch((error) => console.error("Error fetching data: ", error));
+
+	// TODO: remove this is just test
+	// if (query === "test") {
+	//   posts = [
+	//     {
+	//       author: "SecretMan123",
+	//       subject: "This is my posts",
+	//       content: "stuff stuff stuff",
+	//     },
+	//   ];
+	// }
+
+	// posts.forEach((post) => {
+	//   const li = document.createElement("li");
+	//   li.classList.add("blog-post");
+	//   li.innerHTML = `
+	//   <div class="tab"></div>
+	//   <h2>Users\\${post.author} > <b>${post.subject}</b></h2>
+	//   <p>${post.content}</p>`;
+	//   postsList.appendChild(li);
+	// });
   }
-  showProfile = !showProfile
-}
 
-var showLogin = false
-function toggleLoginPopup(){
-  let loginPopup =  document.getElementById("login-popup-body")
-  if(!showLogin){
-    loginPopup.style.visibility = "visible"
-  }else{
-    loginPopup.style.visibility = "hidden";
-  }
-  showLogin = !showLogin
-}
+  displayPosts();
 
-let loginForm = document.getElementById("login-form")
-
-loginForm.addEventListener("submit", (e => {
-  let username = loginForm.elements['username'].value
-  let password = loginForm.elements['password'].value
-
-  if(username != "" && password != ""){
-    console.log(username)
-    console.log(password)
-
-    /**
-     * If credentials are correct, then:
-     * - hide login button
-     * - show profile button
-     * - create cookie (set to 2 hours expiry)
-     */
-
-    // for now just unconditionally "log" them in since backend isn't set up
-    let loginPopup =  document.getElementById("login-popup-body")
-    loginPopup.style.visibility = "hidden";
-    var expirationTime = new Date(new Date().getTime() + 60*60*1000);
-    document.cookie = "username=" + username + "; expires=" + expirationTime.toUTCString();
-
-    checkCookies()
-  }else{
-    alert("Please do not leave username or password blank!");
-  }
-}))
+  // search bar
+  const searchBarForm = document.getElementById("search-bar__form");
+  const searchBarInput = document.getElementById("search-bar__input");
+  searchBarForm.addEventListener("submit", function (event) {
+	event.preventDefault();
+	displayPosts(searchBarInput.value);
+  });
+});
