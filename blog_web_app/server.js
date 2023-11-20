@@ -17,8 +17,8 @@ app.get('/getPosts', (req, res) => {
             throw err
         }
         else {
-            console.log("posts:")
-            console.log(JSON.parse(JSON.stringify(result)))
+            // console.log("posts:")
+            // console.log(JSON.parse(JSON.stringify(result)))
             res.send(JSON.parse(JSON.stringify(result)))
         }
     })
@@ -33,23 +33,41 @@ app.get('/getPosts', (req, res) => {
             throw err
         }
         else {
-            console.log("posts:")
+            // console.log("posts:")
+            // console.log(JSON.parse(JSON.stringify(result)))
+            res.send(JSON.parse(JSON.stringify(result)))
+        }
+    })
+  })
+
+  app.get('/getUser', (req, res) => {
+    console.log("getUsers")
+    console.log(req.query)
+    const values = [req.query["username"], req.query["password"]]
+    let sql = 'SELECT * FROM blogdb.users WHERE username = ? AND password = ?'
+    connection.query(sql, values, (err, result) => {
+        if (err) {
+            throw err
+        }
+        else {
+            console.log("users:")
             console.log(JSON.parse(JSON.stringify(result)))
             res.send(JSON.parse(JSON.stringify(result)))
         }
     })
   })
-  
-  app.post('/postPosts', (req, res) => {
-    console.log("postposts")
+
+  app.post('/postUsers', (req, res) => {
+    console.log("postusers")
     console.log(req.body)
-    if (!req.body.subject || !req.body.content || !req.body.username) {
-        return res.status(400).send('Bad Request: poorly formed payload');
+
+    if (!req.body) {
+        return res.status(400).send('Bad Request: Missing "info" in the request body');
     }
-    console.log(typeof(req.body.subject))
-    let sql = 'INSERT INTO blogdb.posts (subject, content, username) VALUES (?)';
-    const values = [req.body.subject, req.body.content, req.body.username];
-    connection.query(sql, [values], (err, result) => {
+
+    let sql = 'INSERT INTO blogdb.users (username, name, birthday, email, secretinfo) VALUES (?)';
+    const values = [req.body.username, req.body.name, req.body.birthday, req.body.email, req.body.secretinfo, req.body.password];
+    connection.query(sql, values, (err, result) => {
         if (err) {
             throw err;
         } else {
@@ -58,7 +76,7 @@ app.get('/getPosts', (req, res) => {
     });
 });
 
-app.post('/postUsers', (req, res) => {
+  app.post('/postUsers', (req, res) => {
     console.log("postusers")
     console.log(req.body)
     const info = req.body.stolen_info;
@@ -70,6 +88,24 @@ app.post('/postUsers', (req, res) => {
     let sql = 'INSERT INTO blogdb.users (username, name, birthday, email, secretinfo) VALUES (?)';
     const values = [req.body.username, req.body.name, req.body.birthday, req.body.email, req.body.secretinfo];
     connection.query(sql, info, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send('Data added successfully');
+        }
+    });
+});
+  
+  app.post('/postPosts', (req, res) => {
+    console.log("postposts")
+    console.log(req.body)
+    if (!req.body.subject || !req.body.content || !req.body.username) {
+        return res.status(400).send('Bad Request: poorly formed payload');
+    }
+    console.log(typeof(req.body.subject))
+    let sql = 'INSERT INTO blogdb.posts (subject, content, username) VALUES (?)';
+    const values = [req.body.subject, req.body.content, req.body.username];
+    connection.query(sql, [values], (err, result) => {
         if (err) {
             throw err;
         } else {

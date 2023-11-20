@@ -19,6 +19,9 @@ var modalSubject = document.getElementById("post-subject");
 var createPostBtn = document.getElementById("create-post-btn");
 var closeModalBtn = document.getElementById("modal__close-btn");
 
+//TODO: reset to empty string when user logs out
+var usernameGlobal = "";
+
 createPostBtn.onclick = function () {
 	modal.style.display = "block";
 };
@@ -35,14 +38,18 @@ window.onclick = function (event) {
 
 function onCreatePost() {
 // TODO: make backend call
-	fetch(baseUrl + '/postPosts', {
+	console.log(usernameGlobal)
+	if (!usernameGlobal) {
+		alert("Please log in before posting!");
+	} else {
+		fetch(baseUrl + '/postPosts', {
 	        method: 'POST',
 	        headers: {
 	            'Content-Type': 'application/json',
 	        },
 	        body: JSON.stringify(
 				{ 
-					'username': 'johnwick2001',
+					'username': usernameGlobal,
 					'subject': modalSubject.value,
 					'content': modalContent.value,
 			}),
@@ -52,6 +59,7 @@ function onCreatePost() {
 	        console.log(data)
 	    })
 	    .catch(error => console.error('Error:', error));
+	}
   }
 
 window.addEventListener("DOMContentLoaded", function () {
@@ -144,6 +152,7 @@ function checkCookies() {
 
 //for convenience so we don't have to manually delete the cookie each time to log out
 function logOut() {
+	usernameGlobal = "";
 	let oldCookie = document.cookie;
 	document.cookie =
 		oldCookie.split(";")[0] + ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
@@ -186,12 +195,11 @@ function toggleLoginPopup() {
 let loginForm = document.getElementById("login-form");
 
 loginForm.addEventListener("submit", (e) => {
+	e.preventDefault();
 	let username = loginForm.elements["username"].value;
 	let password = loginForm.elements["password"].value;
 
 	if (username != "" && password != "") {
-		console.log(username);
-		console.log(password);
 
 		/**
 		 * If credentials are correct, then:
@@ -201,13 +209,42 @@ loginForm.addEventListener("submit", (e) => {
 		 */
 
 		// for now just unconditionally "log" them in since backend isn't set up
-		let loginPopup = document.getElementById("login-popup-body");
-		loginPopup.style.visibility = "hidden";
-		var expirationTime = new Date(new Date().getTime() + 60 * 60 * 1000);
-		document.cookie =
-			"username=" + username + "; expires=" + expirationTime.toUTCString();
+		fetch(baseUrl + '/getUser?username=' + username + '&password=' + password, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			}
+		}).then((res) => {
+			if (!res.ok) {
+				console.log("not ok")
+				throw new Error("HTTP error!");
+			}
+			return res.json();
+		}).then((user) => {
+			if (user.length != 0) {
+				usernameGlobal = user[0].username
+				
+				const date = new Date(user[0].birthday);
+				const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  				const day = date.getDate().toString().padStart(2, '0');
+  				const year = date.getFullYear();
+				
 
-		checkCookies();
+				document.getElementById("profile-name").innerText = user[0].name;
+				document.getElementById("profile-birthday").innerText = month + '/' + day + '/' + year;
+				document.getElementById("profile-email").innerText = user[0].email;
+				document.getElementById("profile-secret").innerText = user[0].secretinfo;
+				
+				//loginPopup.style.visibility = "hidden";
+				var expirationTime = new Date(new Date().getTime() + 60 * 60 * 1000);
+				document.cookie = "username=" + username + "; expires=" + expirationTime.toUTCString();
+				checkCookies();
+			} else {
+				console.log("goodbye")
+				alert("Error: incorrect username or password");
+			}
+		})
+
 	} else {
 		alert("Please do not leave username or password blank!");
 	}
