@@ -35,16 +35,34 @@ window.onclick = function (event) {
 
 function onCreatePost() {
   // TODO: make backend call
-  console.log("making backend API call");
-  posts = [
-	{
-	  author: "TEST",
-	  subject: "This is my posts",
-	  content: "stuff stuff stuff",
-	},
-  ];
+	console.log("making backend API call");
+	// fetch('http://localhost:3000/postPosts', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(
+	// 			{ 
+	// 				'username': ,
+	// 				'title': "test1",
+	// 				'content': ,
+	// 		}),
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log(data)
+    //     })
+    //     .catch(error => console.error('Error:', error));
+	
+		posts = [
+		{
+		author: "TEST",
+		subject: "This is my posts",
+		content: "stuff stuff stuff",
+		},
+	];
 
-  return false;
+	return false;
 }
 
 // header text typing effect
@@ -110,13 +128,10 @@ var posts1 = [
 window.addEventListener("DOMContentLoaded", function () {
   const postsList = document.getElementById("blog-container");
   // TODO: change this to backend url
-  const baseUrl = "localhost:3000";
-  console.log("hello")
+  const baseUrl = "http://localhost:3000";
   // TODO: append query to baseUrl and make request
   function displayPosts(query) {
-	console.log("hello")
 	postsList.innerHTML = "";
-
 		fetch(baseUrl + '/getPosts', {
 			method: 'GET',
 			headers: {
@@ -126,18 +141,18 @@ window.addEventListener("DOMContentLoaded", function () {
 		if (!res.ok) {
 		  throw new Error("HTTP error!");
 		}
-		print(res.json())
 		return res.json();
-	  })
-	  .then((posts) => {
+	  }).then((posts) => {
 		posts.forEach((post) => {
 			console.log(post)
+			console.log(post.username)
 			const li = document.createElement("li");
 			li.classList.add("blog-post");
 			li.innerHTML = `
-		<div class="tab"></div>
-		<h2>Users\\${post.author} > <b>${post.subject}</b></h2>
-		<p>${post.content}</p>`;
+			<div class="tab"></div>
+			<h2>Users\\${post.username} > <b>${post.title}</b></h2>
+			<p>${post.content}</p>`;
+			postsList.appendChild(li)
 		});
 	  })
 	  .catch((error) => console.error("Error fetching data: ", error));

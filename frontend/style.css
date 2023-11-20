@@ -46,6 +46,7 @@ body {
 
 .header {
   text-align: center;
+  position: sticky;
   color: #accf5d;
 }
 
@@ -81,6 +82,7 @@ body {
   color: white;
   border-radius: 8px;
   outline: 3px solid rgb(186, 186, 186);
+  list-style: none;
 }
 
 .blog-post > p {
@@ -97,92 +99,6 @@ body {
   height: 20px;
 }
 
-.button {
-  color: #accf5d;
-  background-color: transparent;
-  outline: 5px solid #accf5d;
-  border-radius: 0.23rem;
-  filter: drop-shadow(0px 0px 2px #accf5d)
-}
-
-#profile-button{
-  position: absolute;
-  left: 0;
-  margin-left: 2.5rem;
-  height: 2rem;
-  width: 7rem;
-  font-size: 1.2rem;
-  display: none;
-}
-
-#login-button{
-  position: absolute;
-  right: 0;
-  margin-right: 2.5rem;
-  height: 2rem;
-  width: 7rem;
-  font-size: 1.2rem;
-}
-
-#logout-button{
-  position: absolute;
-  display: none;
-  right: 0;
-  margin-right: 2.5rem;
-  height: 2rem;
-  width: 7rem;
-  font-size: 1.2rem;
-}
-
-#profile-popup-body{
-  visibility: hidden;
-  background-color: #dae2ca;
-  left: 1rem;
-  top: 5rem;
-  position: absolute;
-  outline: 0.3rem solid #accf5d;
-  background-color: #303030;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.user-info{
-  color: white;
-}
-
-.info-label{
-  color: #accf5d;
-}
-
-#profile-popup-body > h1 {
-  font-size: 1.3rem;
-  margin-right: 1rem;
-  margin-left: 1rem;
-}
-
-#login-popup-body{
-  visibility: hidden;
-  background-color: #303030;
-  border-radius: 5px;
-  right: 1rem;
-  top: 5rem;
-  position: absolute;
-  outline: 0.3rem solid #accf5d;
-  justify-content: center;
-}
-
-.input{
-  border: transparent;
-  background-color: #dae2ca;
-  height: 1.5rem;
-  border-radius: 0.3rem;
-}
-
-#login-form{
-  text-align: center;
-  padding: 3rem;
-  font-size: 1.3rem;
-  color: #accf5d;
 .create-post-btn {
   all: unset;
 
@@ -270,9 +186,9 @@ body {
 }
 
 line {
-  filter: drop-shadow(0px 0px 4px #accf5d);
+  filter: drop-shadow(0px 0px 4px red);
 }
 
 circle {
-  filter: drop-shadow(0px 0px 4px #accf5d);
+  filter: drop-shadow(0px 0px 4px red);
 }
