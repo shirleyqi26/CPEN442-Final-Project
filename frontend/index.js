@@ -172,7 +172,11 @@ function checkCookies() {
 //for convenience so we don't have to manually delete the cookie each time to log out
 function logOut() {
 	usernameGlobal = "";
-	document.cookie = "username= ;expires=Thu, 01 Jan 1970 00:00:01 GMT";
+	document.cookie = "username= ;expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;";
+
+	console.log(document.cookie)
+
+	console.log(document.cookie)
 
 	let loginButton = document.getElementById("login-button");
 	loginButton.style.display = "inline";
@@ -234,7 +238,7 @@ loginForm.addEventListener("submit", (e) => {
 			if (user.length != 0) {
 				populateProfile(user)
 				var expirationTime = new Date(new Date().getTime() + 60 * 60 * 1000);
-				document.cookie = "username=" + username + "; expires=" + expirationTime.toUTCString();
+				document.cookie = "username=" + username + "; expires=" + expirationTime.toUTCString() + "; path=/";
 				let loginButton = document.getElementById("login-button");
 				loginButton.style.display = "none";
 
