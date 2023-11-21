@@ -130,6 +130,10 @@ app.get('/getPosts', (req, res) => {
     });
 });
 
+app.get('/malicious', (req, res)=>{
+    console.log(req.body)
+})
+
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
     connection.connect((err) => {
