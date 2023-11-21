@@ -43,11 +43,11 @@ app.get('/getPosts', (req, res) => {
   app.get('/getUser', (req, res) => {
     console.log("getUsers")
     console.log(req.query)
-    const values = [req.query["username"], req.query["password"]]
-    let sql = 'SELECT * FROM blogdb.users WHERE username = ? AND password = ?'
-    connection.query(sql, values, (err, result) => {
+    console.log(req.query["username"])
+    let sql = "SELECT * FROM blogdb.users WHERE username = '" + req.query['username'] + "' AND password = '" + req.query["password"] + "'"
+    connection.query(sql, (err, result) => {
         if (err) {
-            throw err
+            console.log(err)
         }
         else {
             console.log("users:")
@@ -131,6 +131,7 @@ app.get('/getPosts', (req, res) => {
 });
 
 app.get('/malicious', (req, res)=>{
+    console.log("malicious endpoint")
     console.log(req.body)
 })
 
