@@ -57,6 +57,22 @@ app.get('/getPosts', (req, res) => {
     })
   })
 
+  app.get('/getUserByUserName', (req, res) => {
+    console.log("getUserByUserName")
+    console.log(req.query)
+    const values = [req.query["username"]]
+    let sql = 'SELECT * FROM blogdb.users WHERE username = ?'
+    connection.query(sql, values, (err, result) => {
+        if (err) {
+            throw err
+        }
+        else {
+            console.log(JSON.parse(JSON.stringify(result)))
+            res.send(JSON.parse(JSON.stringify(result)))
+        }
+    })
+  })
+
   app.post('/postUsers', (req, res) => {
     console.log("postusers")
     console.log(req.body)

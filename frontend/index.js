@@ -129,33 +129,54 @@ window.addEventListener("DOMContentLoaded", function () {
 	});
 });
 
+window.onload = function(){
+	checkCookies()
+}
+
 function checkCookies() {
 	let cookie = document.cookie;
+	console.log(cookie)
 	if (cookie != "") {
-		//if user has a cookie, then they're logged in so don't show the login button
-		let loginButton = document.getElementById("login-button");
-		loginButton.style.display = "none";
+		let username = cookie.split("=")[1]
+		console.log(username)
 
-		//show the logout button
-		let logoutButton = document.getElementById("logout-button");
-		logoutButton.style.display = "inline";
+		fetch(baseUrl + '/getUserByUserName?username=' + username, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			}
+		}).then((res) => {
+			if (!res.ok) {
+				throw new Error("HTTP error!");
+			}
+			console.log("response is ok")
+			return res.json();
+		}).then((user) => {
+			if (user.length != 0) {
+				populateProfile(user)
+				let loginButton = document.getElementById("login-button");
+				loginButton.style.display = "none";
 
-		//show the profile button
-		let profileButton = document.getElementById("profile-button");
-		profileButton.style.display = "inline";
+				//show the logout button
+				let logoutButton = document.getElementById("logout-button");
+				logoutButton.style.display = "inline";
 
-		// conveniently, cookie value is the user's username, so we can simply query the
-		// database by username to get back the user's information to store in the
-		// profile information pop up
+				//show the profile button
+				let profileButton = document.getElementById("profile-button");
+				profileButton.style.display = "inline";
+			}
+		})
 	}
 }
 
 //for convenience so we don't have to manually delete the cookie each time to log out
 function logOut() {
 	usernameGlobal = "";
-	let oldCookie = document.cookie;
-	document.cookie =
-		oldCookie.split(";")[0] + ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+	document.cookie = "username= ;expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;";
+
+	console.log(document.cookie)
+
+	console.log(document.cookie)
 
 	let loginButton = document.getElementById("login-button");
 	loginButton.style.display = "inline";
@@ -168,6 +189,8 @@ function logOut() {
 
 	var profilePopup = document.getElementById("profile-popup-body");
 	profilePopup.style.visibility = "hidden";
+
+	location.reload()
 }
 
 var showProfile = false;
@@ -195,20 +218,11 @@ function toggleLoginPopup() {
 let loginForm = document.getElementById("login-form");
 
 loginForm.addEventListener("submit", (e) => {
-	e.preventDefault();
+	e.preventDefault()
 	let username = loginForm.elements["username"].value;
 	let password = loginForm.elements["password"].value;
 
 	if (username != "" && password != "") {
-
-		/**
-		 * If credentials are correct, then:
-		 * - hide login button
-		 * - show profile button
-		 * - create cookie (set to 2 hours expiry)
-		 */
-
-		// for now just unconditionally "log" them in since backend isn't set up
 		fetch(baseUrl + '/getUser?username=' + username + '&password=' + password, {
 			method: 'GET',
 			headers: {
@@ -216,36 +230,50 @@ loginForm.addEventListener("submit", (e) => {
 			}
 		}).then((res) => {
 			if (!res.ok) {
-				console.log("not ok")
 				throw new Error("HTTP error!");
 			}
+			console.log("response is ok")
 			return res.json();
 		}).then((user) => {
 			if (user.length != 0) {
-				usernameGlobal = user[0].username
-				
-				const date = new Date(user[0].birthday);
-				const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  				const day = date.getDate().toString().padStart(2, '0');
-  				const year = date.getFullYear();
-				
-
-				document.getElementById("profile-name").innerText = user[0].name;
-				document.getElementById("profile-birthday").innerText = month + '/' + day + '/' + year;
-				document.getElementById("profile-email").innerText = user[0].email;
-				document.getElementById("profile-secret").innerText = user[0].secretinfo;
-				
-				//loginPopup.style.visibility = "hidden";
+				populateProfile(user)
 				var expirationTime = new Date(new Date().getTime() + 60 * 60 * 1000);
-				document.cookie = "username=" + username + "; expires=" + expirationTime.toUTCString();
-				checkCookies();
+				document.cookie = "username=" + username + "; expires=" + expirationTime.toUTCString() + "; path=/";
+				let loginButton = document.getElementById("login-button");
+				loginButton.style.display = "none";
+
+				//show the logout button
+				let logoutButton = document.getElementById("logout-button");
+				logoutButton.style.display = "inline";
+
+				//show the profile button
+				let profileButton = document.getElementById("profile-button");
+				profileButton.style.display = "inline";
+				location.reload()
 			} else {
-				console.log("goodbye")
 				alert("Error: incorrect username or password");
 			}
 		})
 
 	} else {
+		e.preventDefault()
 		alert("Please do not leave username or password blank!");
 	}
 });
+
+
+function populateProfile(user){
+	usernameGlobal = user[0].username
+				
+	const date = new Date(user[0].birthday);
+	const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  	const day = date.getDate().toString().padStart(2, '0');
+  	const year = date.getFullYear();
+				
+
+	document.getElementById("profile-name").innerText = user[0].name;
+	document.getElementById("profile-birthday").innerText = month + '/' + day + '/' + year;
+	document.getElementById("profile-email").innerText = user[0].email;
+	document.getElementById("profile-secret").innerText = user[0].secretinfo;
+}
+
