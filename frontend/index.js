@@ -170,10 +170,11 @@ function checkCookies() {
 			if (!res.ok) {
 				throw new Error("HTTP error!");
 			}
-			console.log("response is ok")
+			console.log("response is ok-checkcookies")
 			return res.json();
 		}).then((user) => {
 			if (user.length != 0) {
+				console.log(user)
 				populateProfile(user)
 				let loginButton = document.getElementById("login-button");
 				loginButton.style.display = "none";
@@ -253,16 +254,19 @@ loginForm.addEventListener("submit", (e) => {
 			if (!res.ok) {
 				throw new Error("HTTP error!");
 			}
-			console.log("response is ok")
+			console.log("response is ok-login")
 			return res.json();
 		}).then((user) => {
 			if (user.length != 0) {
 				populateProfile(user)
+				console.log("HELLO")
+				console.log(user)
 				var expirationTime = new Date(new Date().getTime() + 60 * 60 * 1000);
-				document.cookie = "username=" + username + "; expires=" + expirationTime.toUTCString() + "; path=/";
+				document.cookie = "username=" + user[0].username + "; expires=" + expirationTime.toUTCString() + "; path=/";
 				let loginButton = document.getElementById("login-button");
 				loginButton.style.display = "none";
-
+				console.log("HERE")
+				console.log(document.cookie)
 				//show the logout button
 				let logoutButton = document.getElementById("logout-button");
 				logoutButton.style.display = "inline";
