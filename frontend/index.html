@@ -117,6 +117,11 @@
     <ul id="blog-container"></ul>
     <button id="create-post-btn" class="create-post-btn"></button>
 
+    <div class="reset-btn-group">
+      <button onclick="return onResetAdversaryDB()">RESET Adversary DB</button>
+      <button onclick="return onResetBlogDB()">RESET Blog DB</button>
+    </div>
+
     <div id="modal" class="modal">
       <div class="modal__content">
         <span style="display: flex; justify-content: space-between">
@@ -124,7 +129,11 @@
           <button id="modal__close-btn" class="modal__close-btn"></button>
         </span>
         <form onsubmit="return onCreatePost()">
-          <input id="post-subject" placeholder="Subject" class="modal__post-subject" />
+          <input
+            id="post-subject"
+            placeholder="Subject"
+            class="modal__post-subject"
+          />
           <textarea
             id="post-content"
             class="modal__post-content"
