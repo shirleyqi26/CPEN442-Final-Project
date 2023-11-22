@@ -13,7 +13,7 @@ body {
 
   position: fixed;
   top: 0;
-  z-index: 1000;
+  z-index: 99999;
   transition: top 0.3s;
 }
 .search-bar__form {
@@ -170,6 +170,7 @@ body {
   position: absolute;
   outline: 0.3rem solid #accf5d;
   justify-content: center;
+  z-index: 9999999;
 }
 
 .input {
@@ -184,6 +185,7 @@ body {
   padding: 3rem;
   font-size: 1.3rem;
   color: #accf5d;
+  z-index: 9999999;
 }
 
 .create-post-btn {
@@ -276,6 +278,7 @@ body {
   position: fixed;
   bottom: 1rem;
   left: 1rem;
+  z-index: 99999;
 }
 .reset-btn-group > button {
   all: unset;

@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3000";
+const baseUrl = "http://localhost:5000";
 
 // show and hide search bar with scroll
 var prevScrollPos = window.scrollY;
@@ -264,8 +264,6 @@ loginForm.addEventListener("submit", (e) => {
       .then((user) => {
         if (user.length != 0) {
           populateProfile(user);
-          console.log("HELLO");
-          console.log(user);
           var expirationTime = new Date(new Date().getTime() + 60 * 60 * 1000);
           document.cookie =
             "username=" +
@@ -275,8 +273,6 @@ loginForm.addEventListener("submit", (e) => {
             "; path=/";
           let loginButton = document.getElementById("login-button");
           loginButton.style.display = "none";
-          console.log("HERE");
-          console.log(document.cookie);
           //show the logout button
           let logoutButton = document.getElementById("logout-button");
           logoutButton.style.display = "inline";
@@ -311,15 +307,18 @@ function populateProfile(user) {
 }
 
 function onResetAdversaryDB() {
-	fetch("http://localhost:4000/resetAdversaryDB", {
-		method: 'DELETE'
-	}).then().catch(error => console.error('Error:', error));
-	window.location.reload();
+  fetch("http://localhost:4000/resetAdversaryDB", {
+    method: "DELETE",
+  })
+    .then()
+    .catch((error) => console.error("Error:", error));
 }
 
 function onResetBlogDB() {
-	fetch("http://localhost:3000/resetBlogDB", {
-		method: 'DELETE'
-	}).then().catch(error => console.error('Error:', error));
-	window.location.reload();
+  fetch("http://localhost:5000/resetBlogDB", {
+    method: "DELETE",
+  })
+    .then()
+    .catch((error) => console.error("Error:", error));
+  window.location.reload();
 }
