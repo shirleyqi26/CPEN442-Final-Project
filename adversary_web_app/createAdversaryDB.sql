@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS `adversary_database`.`stolen_info` (`id` INT NOT NULL AUTO_INCREMENT, `info` VARCHAR(9999) NULL, PRIMARY KEY (`id`));

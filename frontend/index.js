@@ -311,9 +311,15 @@ function populateProfile(user) {
 }
 
 function onResetAdversaryDB() {
-  console.log("adversary reset");
+	fetch("http://localhost:4000/resetAdversaryDB", {
+		method: 'DELETE'
+	}).then().catch(error => console.error('Error:', error));
+	window.location.reload();
 }
 
 function onResetBlogDB() {
-  console.log("blog reset");
+	fetch("http://localhost:3000/resetBlogDB", {
+		method: 'DELETE'
+	}).then().catch(error => console.error('Error:', error));
+	window.location.reload();
 }
