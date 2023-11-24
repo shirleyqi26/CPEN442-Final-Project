@@ -16,10 +16,10 @@ cd ../blog_web_app; npm install
 cd ../adversary_web_app; npm install
 ```
 4.	To run the whole project, you will need to open 4 terminals: \
-a.In terminal 1, run: ```cd frontend; npm start```\
-b.In terminal 2, run: ```cd blog_web_app; npm start```\
-c.In terminal 3, run: ```cd adversary_web_app; npm start ```\
-d.In terminal 4, run: ```cd adversary_web_app; node index.js ```
+a. In terminal 1, run: ```cd frontend; npm start```\
+b. In terminal 2, run: ```cd blog_web_app; npm start```\
+c. In terminal 3, run: ```cd adversary_web_app; npm start ```\
+d. In terminal 4, run: ```cd adversary_web_app; node index.js ```
 5.	Now, you will able to see the blog site web page at http://localhost:8080 and the adversary web page at  http://localhost:8081 
 
 ## The assignment
