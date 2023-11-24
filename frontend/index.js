@@ -79,8 +79,9 @@ function onCreatePost() {
 }
 
 window.addEventListener("DOMContentLoaded", function () {
-  displayPosts();
-
+if(this.document.cookie != ""){
+	displayPosts();
+}
   // search bar
   const searchBarForm = document.getElementById("search-bar__form");
   const searchBarInput = document.getElementById("search-bar__input");
@@ -111,7 +112,9 @@ function displayPosts(query) {
         if (posts.length == 0) {
           const div = document.createElement("div");
           div.classList.add("blog-post");
-          div.innerHTML = "Sorry, no results for " + query;
+		  div.style.textAlign = "center"
+		  div.style.fontSize = "1.5rem"
+          div.innerHTML = "<b>Sorry, no results for " + query + "</b>";
           postsList.appendChild(div);
         }
         posts.forEach((post) => {
@@ -140,8 +143,6 @@ function displayPosts(query) {
       })
       .then((posts) => {
         posts.forEach((post) => {
-          // console.log(post)
-          // console.log(post.username)
           const li = document.createElement("li");
           li.classList.add("blog-post");
           li.innerHTML = `
@@ -156,6 +157,10 @@ function displayPosts(query) {
 }
 
 function checkCookies() {
+  let posts = document.getElementById("blog-container");
+  let searchBar = document.getElementById("search-bar__form");
+  let h3 = document.createElement("h1")
+
   let cookie = document.cookie;
   console.log(cookie);
   if (cookie != "") {
@@ -189,9 +194,24 @@ function checkCookies() {
           //show the profile button
           let profileButton = document.getElementById("profile-button");
           profileButton.style.display = "inline";
+		  document.getElementById("header").removeChild(h3)
+		  posts.style.display = "inline";
+		  searchBar.style.display = "inline";
         }
       });
+  } else {
+	pleaseLogin()
   }
+}
+
+function pleaseLogin(){
+	let posts = document.getElementById("blog-container");
+  	let searchBar = document.getElementById("search-bar__form");
+  	let h3 = document.createElement("h1")
+	  posts.innerHTML = ""
+	  searchBar.style.display = "none";
+	  h3.innerHTML = "Please log in!"
+	  document.getElementById("header").appendChild(h3)
 }
 
 //for convenience so we don't have to manually delete the cookie each time to log out
@@ -215,6 +235,8 @@ function logOut() {
   var profilePopup = document.getElementById("profile-popup-body");
   profilePopup.style.visibility = "hidden";
 
+  let posts = document.getElementById("blog-container");
+  posts.innerHTML = ""
   location.reload();
 }
 
