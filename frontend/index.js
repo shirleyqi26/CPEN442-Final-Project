@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:5000";
+const baseUrl = "http://localhost:3000";
 
 // show and hide search bar with scroll
 var prevScrollPos = window.scrollY;
@@ -22,10 +22,11 @@ function checkURL() {
   const params = new URLSearchParams(window.location.search);
   console.log(params.toString());
 
-  if (params.size == 1) {
-    if (params.has("username")) {
-      console.log("yes");
-      displayPosts(params.get("username"));
+  if(document.cookie != ""){
+    if (params.size == 1) {
+      if (params.has("username")) {
+        displayPosts(params.get("username"));
+      }
     }
   }
 }
@@ -126,6 +127,7 @@ function displayPosts(query) {
 			<p>${post.content}</p>`;
           postsList.appendChild(li);
         });
+        history.pushState(null, null, "http://127.0.0.1:5500/frontend/?username=" + query)
       })
       .catch((error) => console.error("Error fetching data: ", error));
   } else {
@@ -205,7 +207,7 @@ function checkCookies() {
 }
 
 function pleaseLogin(){
-	let posts = document.getElementById("blog-container");
+	  let posts = document.getElementById("blog-container");
   	let searchBar = document.getElementById("search-bar__form");
   	let h3 = document.createElement("h1")
 	  posts.innerHTML = ""
@@ -218,10 +220,6 @@ function pleaseLogin(){
 function logOut() {
   usernameGlobal = "";
   document.cookie = "username= ;expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;";
-
-  console.log(document.cookie);
-
-  console.log(document.cookie);
 
   let loginButton = document.getElementById("login-button");
   loginButton.style.display = "inline";
@@ -237,7 +235,10 @@ function logOut() {
 
   let posts = document.getElementById("blog-container");
   posts.innerHTML = ""
-  location.reload();
+
+  console.log(posts)
+
+  location.assign("http://127.0.0.1:5500/frontend/")
 }
 
 var showProfile = false;
@@ -302,7 +303,7 @@ loginForm.addEventListener("submit", (e) => {
           //show the profile button
           let profileButton = document.getElementById("profile-button");
           profileButton.style.display = "inline";
-          location.reload();
+          location.assign("http://127.0.0.1:5500/frontend/")
         } else {
           alert("Error: incorrect username or password");
         }
