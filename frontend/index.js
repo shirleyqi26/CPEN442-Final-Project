@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3000";
+const baseUrl = "http://localhost:5000";
 
 // show and hide search bar with scroll
 var prevScrollPos = window.scrollY;
@@ -22,7 +22,7 @@ function checkURL() {
   const params = new URLSearchParams(window.location.search);
   console.log(params.toString());
 
-  if(document.cookie != ""){
+  if (document.cookie != "") {
     if (params.size == 1) {
       if (params.has("username")) {
         displayPosts(params.get("username"));
@@ -80,9 +80,9 @@ function onCreatePost() {
 }
 
 window.addEventListener("DOMContentLoaded", function () {
-if(this.document.cookie != ""){
-	displayPosts();
-}
+  if (this.document.cookie != "") {
+    displayPosts();
+  }
   // search bar
   const searchBarForm = document.getElementById("search-bar__form");
   const searchBarInput = document.getElementById("search-bar__input");
@@ -113,8 +113,8 @@ function displayPosts(query) {
         if (posts.length == 0) {
           const div = document.createElement("div");
           div.classList.add("blog-post");
-		  div.style.textAlign = "center"
-		  div.style.fontSize = "1.5rem"
+          div.style.textAlign = "center";
+          div.style.fontSize = "1.5rem";
           div.innerHTML = "<b>Sorry, no results for " + query + "</b>";
           postsList.appendChild(div);
         }
@@ -127,7 +127,11 @@ function displayPosts(query) {
 			<p>${post.content}</p>`;
           postsList.appendChild(li);
         });
-        history.pushState(null, null, "http://127.0.0.1:5500/frontend/?username=" + query)
+        history.pushState(
+          null,
+          null,
+          "http://127.0.0.1:8080/?username=" + query
+        );
       })
       .catch((error) => console.error("Error fetching data: ", error));
   } else {
@@ -161,7 +165,7 @@ function displayPosts(query) {
 function checkCookies() {
   let posts = document.getElementById("blog-container");
   let searchBar = document.getElementById("search-bar__form");
-  let h3 = document.createElement("h1")
+  let h3 = document.createElement("h1");
 
   let cookie = document.cookie;
   console.log(cookie);
@@ -196,24 +200,24 @@ function checkCookies() {
           //show the profile button
           let profileButton = document.getElementById("profile-button");
           profileButton.style.display = "inline";
-		  document.getElementById("header").removeChild(h3)
-		  posts.style.display = "inline";
-		  searchBar.style.display = "inline";
+          document.getElementById("header").removeChild(h3);
+          posts.style.display = "inline";
+          searchBar.style.display = "inline";
         }
       });
   } else {
-	pleaseLogin()
+    pleaseLogin();
   }
 }
 
-function pleaseLogin(){
-	  let posts = document.getElementById("blog-container");
-  	let searchBar = document.getElementById("search-bar__form");
-  	let h3 = document.createElement("h1")
-	  posts.innerHTML = ""
-	  searchBar.style.display = "none";
-	  h3.innerHTML = "Please log in!"
-	  document.getElementById("header").appendChild(h3)
+function pleaseLogin() {
+  let posts = document.getElementById("blog-container");
+  let searchBar = document.getElementById("search-bar__form");
+  let h3 = document.createElement("h1");
+  posts.innerHTML = "";
+  searchBar.style.display = "none";
+  h3.innerHTML = "Please log in!";
+  document.getElementById("header").appendChild(h3);
 }
 
 //for convenience so we don't have to manually delete the cookie each time to log out
@@ -234,11 +238,11 @@ function logOut() {
   profilePopup.style.visibility = "hidden";
 
   let posts = document.getElementById("blog-container");
-  posts.innerHTML = ""
+  posts.innerHTML = "";
 
-  console.log(posts)
+  console.log(posts);
 
-  location.assign("http://127.0.0.1:5500/frontend/")
+  location.assign("http://127.0.0.1:8080/");
 }
 
 var showProfile = false;
@@ -266,6 +270,7 @@ function toggleLoginPopup() {
 let loginForm = document.getElementById("login-form");
 
 loginForm.addEventListener("submit", (e) => {
+  console.log(baseUrl);
   e.preventDefault();
   let username = loginForm.elements["username"].value;
   let password = loginForm.elements["password"].value;
@@ -303,7 +308,7 @@ loginForm.addEventListener("submit", (e) => {
           //show the profile button
           let profileButton = document.getElementById("profile-button");
           profileButton.style.display = "inline";
-          location.assign("http://127.0.0.1:5500/frontend/")
+          location.assign("http://127.0.0.1:8080/");
         } else {
           alert("Error: incorrect username or password");
         }
